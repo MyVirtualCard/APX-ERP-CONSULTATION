@@ -160,7 +160,7 @@ if (data.success) {
     phone: "",
     city: "",
     businessType: "",
-    outlets: "",
+    outlets: 0,
     erpInterest: "",
   });
 } else {
@@ -529,11 +529,11 @@ setLoading(false);
                   </label>
 
                   <input
-                    type="text"
+                    type="number"
                     name="outlets"
                     value={formData.outlets}
                     onChange={handleChange}
-                    placeholder="Enter your Outlets"
+                    placeholder="Enter your Outlet Count"
                     className={`w-full h-14 px-5 rounded-sm bg-slate-200 text-black outline-none border-2 transition-all duration-300 ${
                       errors.city
                         ? "border-[#86CCB0]"
