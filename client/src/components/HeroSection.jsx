@@ -771,37 +771,73 @@ animate-breathing-glow
                 </div>
 
                 {/* BUTTON */}
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="group relative w-full overflow-hidden rounded-xl bg-gradient-to-r from-[#8BD3B4] to-[#FF642E] py-4 font-black text-[#071120] transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_60px_rgba(255,100,46,0.35)] disabled:opacity-70 disabled:cursor-not-allowed"
-                >
-                  <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent group-hover:translate-x-full transition-all duration-1000" />
+               <button
+type="submit"
+disabled={loading}
+className="
+group
+relative
+w-full
+overflow-hidden
+rounded-md
 
-                  <div className="relative flex items-center justify-center gap-3">
-                    {loading ? (
-                      <>
-                        <div className="w-5 h-5 border-[3px] border-[#071120]/30 border-t-[#071120] rounded-full animate-spin" />
+bg-gradient-to-r
+from-[#8BD3B4]
+via-[#9EE8C7]
+to-[#FF642E]
+py-4
+px-6
+font-black
+text-[#071120]
+transition-all
+duration-500
+hover:scale-[1.03]
+animate-demo-glow
+disabled:opacity-70
+disabled:cursor-not-allowed
+animate-heartbeat
+"
 
-                        <span className="tracking-wide">
-                          Submitting Request...
-                        </span>
-                      </>
-                    ) : (
-                      <>
-                        <div className="w-3 h-3 rounded-full bg-[#071120] animate-pulse" />
+>
 
-                        <span className="tracking-wide text-[12px] sm:text-lg">
-                          REQUEST DEMO / CONSULTATION
-                        </span>
+{/* Animated Shine */}
 
-                        <span className="text-xl group-hover:translate-x-1 transition-all duration-300">
-                          →
-                        </span>
-                      </>
-                    )}
-                  </div>
-                </button>
+  <div className="shine-effect absolute inset-0" />
+
+{/* Pulse Ring */}
+
+  <div className="absolute inset-0 rounded-2xl animate-ring-pulse" />
+
+  <div className="relative flex items-center justify-center gap-3">
+
+{loading ? (
+  <>
+    <div className="w-5 h-5 border-[3px] border-[#071120]/30 border-t-[#071120] rounded-full animate-spin" />
+
+    <span className="tracking-wide text-sm sm:text-base">
+      Submitting Request...
+    </span>
+  </>
+) : (
+  <>
+    {/* Live Dot */}
+    <span className="live-indicator" />
+
+    {/* Text */}
+    <span className="tracking-wide text-[13px] sm:text-lg">
+      REQUEST DEMO / CONSULTATION
+    </span>
+
+    {/* Floating Arrow */}
+    <span className="floating-arrow text-xl">
+      →
+    </span>
+  </>
+)}
+
+  </div>
+</button>
+
               </form>
             </div>
           </div>
