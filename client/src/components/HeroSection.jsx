@@ -15,171 +15,170 @@ import toast from "react-hot-toast";
 const HeroSection = () => {
   const [loading, setLoading] = useState(false);
   const errorTimeoutRef = useRef(null);
-/* FORM DATA */
+  /* FORM DATA */
 
-const [formData, setFormData] = useState({
-name: "",
-email: "",
-phone: "",
-city: "",
-businessType: "",
-outlets: "",
-erpInterest: "",
-});
-
-/* ERRORS */
-
-const [errors, setErrors] = useState({});
-
-/* HANDLE CHANGE */
-
-const handleChange = (e) => {
-const { name, value } = e.target;
-
-setFormData((prev) => ({
-...prev,
-[name]: value,
-}));
-
-/* REMOVE FIELD ERROR */
-
-setErrors((prev) => ({
-...prev,
-[name]: "",
-}));
-};
-
-/* VALIDATE FORM */
-
-const validateForm = () => {
-let newErrors = {};
-
-/* NAME */
-
-if (!formData.name.trim()) {
-newErrors.name = "Name is required!";
-}
-
-/* EMAIL */
-
-if (!formData.email.trim()) {
-newErrors.email = "Email is required!";
-} else if (
-!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,}$/i.test(formData.email)
-) {
-newErrors.email = "Invalid email address!";
-}
-
-/* PHONE */
-
-if (!formData.phone.trim()) {
-newErrors.phone = "Phone number is required!";
-} else if (!/^[6-9]\d{9}$/.test(formData.phone)) {
-newErrors.phone = "Enter valid 10 digit mobile number";
-}
-
-/* CITY */
-
-if (!formData.city.trim()) {
-newErrors.city = "City is required!";
-}
-
-/* BUSINESS TYPE */
-
-if (!formData.businessType) {
-newErrors.businessType = "Please select business type!";
-}
-
-/* OUTLETS */
-
-if (!formData.outlets) {
-newErrors.outlets = "Please select outlet count!";
-}
-
-/* ERP INTEREST */
-
-if (!formData.erpInterest) {
-newErrors.erpInterest = "Please choose one option!";
-}
-
-/* SET ERRORS */
-
-setErrors(newErrors);
-
-/* AUTO CLEAR ERRORS */
-
-if (errorTimeoutRef.current) {
-clearTimeout(errorTimeoutRef.current);
-}
-
-if (Object.keys(newErrors).length > 0) {
-errorTimeoutRef.current = setTimeout(() => {
-setErrors({});
-}, 3000);
-}
-
-return Object.keys(newErrors).length === 0;
-};
-
-/* HANDLE SUBMIT */
-
-const handleSubmit = async (e) => {
-e.preventDefault();
-
-if (!validateForm()) return;
-
-try {
-setLoading(true);
-/* API CALL */
-
-const response = await fetch(
-  `${import.meta.env.VITE_BACKEND_API}/api/consultation`,
-  {
-    method: "POST",
-
-    headers: {
-      "Content-Type": "application/json",
-    },
-
-    body: JSON.stringify(formData),
-  }
-);
-
-const data = await response.json();
-
-/* SUCCESS */
-
-if (data.success) {
-  toast.success("Consultation Request Submitted Successfully");
-
-  /* RESET FORM */
-
-  setFormData({
+  const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
     city: "",
     businessType: "",
-    outlets: 0,
+    outlets: "",
     erpInterest: "",
   });
-} else {
-  toast.error(data.message || "Something went wrong");
-}
 
+  /* ERRORS */
 
-} catch (error) {
-console.log(error);
+  const [errors, setErrors] = useState({});
 
+  /* HANDLE CHANGE */
 
-toast.error("Server Error");
+  const handleChange = (e) => {
+    const { name, value } = e.target;
 
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
 
-} finally {
-setLoading(false);
-}
-};
+    /* REMOVE FIELD ERROR */
 
+    setErrors((prev) => ({
+      ...prev,
+      [name]: "",
+    }));
+  };
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  /* VALIDATE FORM */
+
+  const validateForm = () => {
+    let newErrors = {};
+
+    /* NAME */
+
+    if (!formData.name.trim()) {
+      newErrors.name = "Name is required!";
+    }
+
+    /* EMAIL */
+
+    if (!formData.email.trim()) {
+      newErrors.email = "Email is required!";
+    } else if (
+      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,}$/i.test(formData.email)
+    ) {
+      newErrors.email = "Invalid email address!";
+    }
+
+    /* PHONE */
+
+    if (!formData.phone.trim()) {
+      newErrors.phone = "Phone number is required!";
+    } else if (!/^[6-9]\d{9}$/.test(formData.phone)) {
+      newErrors.phone = "Enter valid 10 digit mobile number";
+    }
+
+    /* CITY */
+
+    if (!formData.city.trim()) {
+      newErrors.city = "City is required!";
+    }
+
+    /* BUSINESS TYPE */
+
+    if (!formData.businessType) {
+      newErrors.businessType = "Please select business type!";
+    }
+
+    /* OUTLETS */
+
+    if (!formData.outlets) {
+      newErrors.outlets = "Please select outlet count!";
+    }
+
+    /* ERP INTEREST */
+
+    if (!formData.erpInterest) {
+      newErrors.erpInterest = "Please choose one option!";
+    }
+
+    /* SET ERRORS */
+
+    setErrors(newErrors);
+
+    /* AUTO CLEAR ERRORS */
+
+    if (errorTimeoutRef.current) {
+      clearTimeout(errorTimeoutRef.current);
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      errorTimeoutRef.current = setTimeout(() => {
+        setErrors({});
+      }, 3000);
+    }
+
+    return Object.keys(newErrors).length === 0;
+  };
+
+  /* HANDLE SUBMIT */
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!validateForm()) return;
+
+    try {
+      setLoading(true);
+      /* API CALL */
+
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_API}/api/consultation`,
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type": "application/json",
+          },
+
+          body: JSON.stringify(formData),
+        },
+      );
+
+      const data = await response.json();
+
+      /* SUCCESS */
+
+      if (data.success) {
+        setShowSuccessModal(true);
+
+        /* AUTO CLOSE AFTER 5 SEC */
+        setTimeout(() => {
+          setShowSuccessModal(false);
+        }, 5000);
+
+        /* RESET FORM */
+
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          city: "",
+          businessType: "",
+          outlets: 0,
+          erpInterest: "",
+        });
+      } else {
+        toast.error(data.message || "Something went wrong");
+      }
+    } catch (error) {
+      console.log(error);
+
+      toast.error("Server Error");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const features = [
     {
@@ -206,6 +205,112 @@ setLoading(false);
       <div className="absolute bottom-[-200px] right-[-100px] w-[350px] h-[350px] bg-blue-700/20 blur-[120px]" />
       {/* Navbar */}
       <Navbar />
+
+      {showSuccessModal && (
+
+  <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/70 backdrop-blur-sm px-4">
+
+<div
+  className="
+  relative
+  w-full
+  max-w-md
+  rounded-3xl
+  bg-white
+  p-6
+  sm:p-8
+  text-center
+  shadow-[0_20px_80px_rgba(0,0,0,0.25)]
+  animate-[popup_0.35s_ease]
+  "
+>
+
+  {/* CLOSE BUTTON */}
+  <button
+    onClick={() => setShowSuccessModal(false)}
+    className="
+    absolute
+    right-4
+    top-4
+    h-8
+    w-8
+    rounded-full
+    bg-slate-100
+    text-slate-500
+    hover:bg-slate-200
+    transition
+    "
+  >
+    ✕
+  </button>
+
+  {/* SUCCESS ICON */}
+  <div
+    className="
+    mx-auto
+    mb-5
+    flex
+    h-20
+    w-20
+    items-center
+    justify-center
+    rounded-full
+    bg-gradient-to-r
+    from-[#8BD3B4]
+    to-[#FF7E4F]
+    text-white
+    text-4xl
+    shadow-lg
+    "
+  >
+    ✓
+  </div>
+
+  {/* TITLE */}
+  <h2 className="text-2xl sm:text-3xl font-black text-[#071120] mb-3">
+    Thank You!
+  </h2>
+
+  {/* MESSAGE */}
+  <p className="text-slate-600 leading-relaxed text-sm sm:text-base">
+    Your request has been submitted successfully.
+    <br />
+    <br />
+    Our APX team will contact you shortly to discuss your
+    requirements and guide you through the next steps.
+  </p>
+
+  {/* BUTTON */}
+  <button
+    onClick={() => setShowSuccessModal(false)}
+    className="
+    mt-6
+    w-full
+    rounded-xl
+    bg-gradient-to-r
+    from-[#8BD3B4]
+    to-[#FF7E4F]
+    py-3
+    font-bold
+    text-[#071120]
+    transition-all
+    duration-300
+    hover:scale-[1.02]
+    "
+  >
+    Close
+  </button>
+
+  {/* AUTO CLOSE INDICATOR */}
+  <div className="mt-5 h-1 w-full overflow-hidden rounded-full bg-slate-200">
+    <div className="h-full bg-gradient-to-r from-[#8BD3B4] to-[#FF7E4F] animate-[progress_5s_linear]" />
+  </div>
+
+</div>
+
+  </div>
+)}
+
       <div className="max-w-8xl mx-auto px-2 lg:px-8 py-[10vh] sm:py-[10vh] relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-start py-4">
           {/* LEFT SIDE */}
@@ -258,8 +363,51 @@ setLoading(false);
             {/* Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 mt-10">
               {/* PRIMARY BUTTON */}
-              <button className="bg-gradient-to-r from-[#8BD3B4] to-[#ff7e4f] hover:scale-105 text-[#071120] font-black px-8 py-4 rounded-xl transition-all duration-300 shadow-[0_0_40px_rgba(255,100,46,0.25)] hover:shadow-[0_0_60px_rgba(139,211,180,0.35)]">
-                Book Free Demo
+              <button
+                type="submit"
+                className="
+group
+relative
+overflow-hidden
+rounded-xl
+px-8
+py-4
+font-black
+text-[#071120]
+bg-gradient-to-r
+from-[#8BD3B4]
+to-[#ff7e4f]
+transition-all
+duration-300
+hover:scale-105
+animate-breathing-glow
+"
+              >
+                {/* Shine Effect */}{" "}
+                <span
+                  className="
+   absolute
+   inset-0
+   -translate-x-full
+   bg-gradient-to-r
+   from-transparent
+   via-white/30
+   to-transparent
+   group-hover:translate-x-full
+   transition-all
+   duration-1000
+ "
+                />
+                <span className="relative flex items-center gap-3">
+                  {/* Blinking Dot */}
+                  <span className="live-dot" />
+
+                  <span>Book Free Demo</span>
+
+                  <span className="group-hover:translate-x-1 transition-transform duration-300">
+                    →
+                  </span>
+                </span>
               </button>
 
               {/* SECONDARY BUTTON */}
@@ -567,11 +715,11 @@ setLoading(false);
                     >
                       <div>
                         <h4 className=" font-semibold text-sm sm:text-base">
-                          Yes, I need a complete solution
+                          I'm Looking for a Free Demo
                         </h4>
 
                         <p className="text-slate-500 text-xs sm:text-sm mt-1">
-                          Manage billing, stock, CRM & accounts
+                          Schedule a live ERP demo and see how APX works.
                         </p>
                       </div>
 
@@ -595,11 +743,12 @@ setLoading(false);
                     >
                       <div>
                         <h4 className=" font-semibold text-sm sm:text-base">
-                          Yes, but want pricing first
+                          I'm Looking for ERP Consultation
                         </h4>
 
                         <p className="text-slate-500 text-xs sm:text-sm mt-1">
-                          I want to compare plans & pricing
+                          Discuss my business requirements and get expert
+                          guidance.{" "}
                         </p>
                       </div>
 
@@ -608,62 +757,6 @@ setLoading(false);
                         name="erpInterest"
                         value="Pricing First"
                         checked={formData.erpInterest === "Pricing First"}
-                        onChange={handleChange}
-                        className="w-5 h-5 accent-cyan-500"
-                      />
-                    </label>
-
-                    {/* OPTION 3 */}
-                    <label
-                      className={`relative flex items-center justify-between rounded-sm border-2 px-5 py-3 cursor-pointer transition-all duration-300 ${
-                        formData.erpInterest === "Need More Details"
-                          ? "border-cyan-400 bg-cyan-400/10 text-white"
-                          : "border-slate-600 bg-slate-200 hover:border-cyan-300 text-black"
-                      }`}
-                    >
-                      <div>
-                        <h4 className=" font-semibold text-sm sm:text-base">
-                          Maybe, need more details
-                        </h4>
-
-                        <p className="text-slate-500 text-xs sm:text-sm mt-1">
-                          Explain features & business benefits
-                        </p>
-                      </div>
-
-                      <input
-                        type="radio"
-                        name="erpInterest"
-                        value="Need More Details"
-                        checked={formData.erpInterest === "Need More Details"}
-                        onChange={handleChange}
-                        className="w-5 h-5 accent-cyan-500"
-                      />
-                    </label>
-
-                    {/* OPTION 4 */}
-                    <label
-                      className={`relative flex items-center justify-between rounded-sm border-2 px-5 py-3 cursor-pointer transition-all duration-300 ${
-                        formData.erpInterest === "Just Exploring"
-                          ? "border-cyan-400 bg-cyan-400/10 text-white"
-                          : "border-slate-600 bg-slate-200 hover:border-cyan-300 text-black"
-                      }`}
-                    >
-                      <div>
-                        <h4 className=" font-semibold text-sm sm:text-base">
-                          I'm Just Exploring
-                        </h4>
-
-                        <p className="text-slate-500 text-xs sm:text-sm mt-1">
-                          Looking for future ERP possibilities
-                        </p>
-                      </div>
-
-                      <input
-                        type="radio"
-                        name="erpInterest"
-                        value="Just Exploring"
-                        checked={formData.erpInterest === "Just Exploring"}
                         onChange={handleChange}
                         className="w-5 h-5 accent-cyan-500"
                       />
@@ -699,7 +792,7 @@ setLoading(false);
                         <div className="w-3 h-3 rounded-full bg-[#071120] animate-pulse" />
 
                         <span className="tracking-wide text-[12px] sm:text-lg">
-                          REQUEST FREE ERP DEMO
+                          REQUEST DEMO / CONSULTATION
                         </span>
 
                         <span className="text-xl group-hover:translate-x-1 transition-all duration-300">

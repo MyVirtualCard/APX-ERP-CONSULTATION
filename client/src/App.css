@@ -14,3 +14,82 @@ body {
   font-weight: 400;
   font-style: normal;
 }
+
+
+@keyframes breathingGlow {
+0% {
+box-shadow:
+0 0 10px rgba(139,211,180,0.35),
+0 0 20px rgba(255,126,79,0.15);
+}
+
+50% {
+box-shadow:
+0 0 30px rgba(139,211,180,0.7),
+0 0 60px rgba(255,126,79,0.4);
+}
+
+100% {
+box-shadow:
+0 0 10px rgba(139,211,180,0.35),
+0 0 20px rgba(255,126,79,0.15);
+}
+}
+
+.animate-breathing-glow {
+animation: breathingGlow 2s infinite ease-in-out;
+}
+
+.live-dot {
+width: 10px;
+height: 10px;
+border-radius: 9999px;
+background: #071120;
+animation: blinkDot 1s infinite;
+}
+
+@keyframes blinkDot {
+0%, 50% {
+opacity: 1;
+}
+
+51%, 100% {
+opacity: 0.2;
+}
+}
+
+@keyframes buttonBlink {
+  0%, 100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.75;
+  }
+}
+
+.animate-button-blink {
+  animation: buttonBlink 1.2s infinite;
+}
+
+@keyframes popup {
+from {
+opacity: 0;
+transform: translateY(30px) scale(0.9);
+}
+
+to {
+opacity: 1;
+transform: translateY(0) scale(1);
+}
+}
+
+@keyframes progress {
+from {
+width: 100%;
+}
+
+to {
+width: 0%;
+}
+}
