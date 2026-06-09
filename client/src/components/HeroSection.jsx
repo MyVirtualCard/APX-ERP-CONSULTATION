@@ -779,7 +779,7 @@ group
 relative
 w-full
 overflow-hidden
-rounded-md
+rounded-full
 
 bg-gradient-to-r
 from-[#8BD3B4]
@@ -800,9 +800,11 @@ animate-heartbeat
 
 >
 
-{/* Animated Shine */}
+  {/* Shine Effect */}
+  <div className="absolute inset-0 shine-sweep" />
 
-  <div className="shine-effect absolute inset-0" />
+  {/* Glow Ring */}
+  <div className="absolute inset-0 rounded-xl glow-ring" />
 
 {/* Pulse Ring */}
 
@@ -824,7 +826,7 @@ animate-heartbeat
     <span className="live-indicator" />
 
     {/* Text */}
-    <span className="tracking-wide text-[13px] sm:text-lg">
+    <span className="tracking-wide text-[10px] sm:text-lg">
       REQUEST DEMO / CONSULTATION
     </span>
 
