@@ -215,7 +215,7 @@ const HeroSection = () => {
   relative
   w-full
   max-w-md
-  rounded-3xl
+  rounded-xl
   bg-white
   p-6
   sm:p-8
@@ -286,7 +286,7 @@ const HeroSection = () => {
     className="
     mt-6
     w-full
-    rounded-xl
+    rounded-sm
     bg-gradient-to-r
     from-[#8BD3B4]
     to-[#FF7E4F]
