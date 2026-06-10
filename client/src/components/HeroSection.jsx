@@ -715,7 +715,7 @@ animate-breathing-glow
                     >
                       <div>
                         <h4 className=" font-semibold text-sm sm:text-base">
-                          I'm Looking for a Free Demo
+                          I request for a free demo
                         </h4>
 
                         <p className="text-slate-500 text-xs sm:text-sm mt-1">
@@ -770,6 +770,7 @@ animate-breathing-glow
                   )}
                 </div>
 
+<div>
                 {/* BUTTON */}
                <button
 type="submit"
@@ -839,6 +840,8 @@ animate-heartbeat
 
   </div>
 </button>
+</div>
+
 
               </form>
             </div>
